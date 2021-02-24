@@ -1,0 +1,37 @@
+.black-page {
+  background-color: #282828;
+  min-height: 100vh!important;
+}
+
+.black-title-color {
+  color: #dcdcdc;
+}
+
+.black-subtitle-color {
+  color: #ababab;
+}
+
+.black-detailBg {
+  background: -webkit-linear-gradient(top,#323232,#282828,#282828);
+}
+
+.black-detailBgMax {
+  background: -webkit-linear-gradient(top,#323232,#282828);
+}
+
+.black-bg1 {
+  background-color: #282828;
+}
+
+.black-bg2,.black-bg3 {
+  background-color: #323232;
+}
+
+.black-bg3 {
+  color: #dedede;
+}
+
+.black-loading {
+  background-color: #323232;
+  color: #aaa;
+}

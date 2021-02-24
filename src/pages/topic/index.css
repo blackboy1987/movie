@@ -1,0 +1,86 @@
+.topImg {
+    width: 750px;
+}
+
+.topic {
+    margin-top: 10px;
+    width: 750px;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.topic,.topicItem {
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.topicItem {
+    width: 700px;
+    -webkit-box-pack: space-evenly;
+    justify-content: space-evenly;
+}
+
+.topicItem-pic {
+    width: 700px;
+    height: 240px;
+    border-radius: 15px;
+}
+
+.topicItem-text {
+    width: 680px;
+    height: 60px;
+    line-height: 60px;
+    font-weight: 400;
+    font-size: 32px;
+}
+
+.topicItem-blurb {
+    width: 680px;
+    height: 40px;
+    color: #999;
+    font-size: 22px;
+}
+
+.loading {
+    width: 750px;
+    height: 60px;
+    font-size: 28px;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.MinTabItem {
+    width: 750px;
+    height: 70px;
+    padding-bottom: 30px;
+    white-space: nowrap;
+}
+
+.MinTabItem-item {
+    width: 107px;
+    height: 70px;
+    display: inline-block;
+    text-align: center;
+}
+
+.MinTabItem-text {
+    color: #fff;
+    font-size: 24px;
+}
+
+.MinClick-text {
+    color: #f49c36;
+    border-bottom: 1px solid #f49c36;
+    padding-bottom: 10px;
+}

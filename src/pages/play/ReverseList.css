@@ -1,0 +1,46 @@
+.tanchuxuanji-list-scroll {
+    width: 750px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+
+.tanchuxuanji-list-fenge,.tanchuxuanji-list-scroll {
+    display: flex;
+    -webkit-box-direction: normal;
+}
+
+.tanchuxuanji-list-fenge {
+    width: 187px;
+    height: 100px;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.tanchuxuanji-list-txt {
+    width: 150px;
+    height: 80px;
+    border-radius: 5px;
+    background-color: #e5e5e5;
+    text-align: center;
+    line-height: 80px;
+    font-size: 28px;
+}
+
+.tanchuxuanji-list-xuanji {
+    font-size: 10px;
+    lines: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.xuanjion {
+    background-color: #f4d13a;
+}

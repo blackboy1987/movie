@@ -1,0 +1,35 @@
+
+.white-page {
+  background-color: #fff;
+  min-height: 100vh!important;
+}
+
+.white-title-color {
+  color: #2b2b2b;
+}
+
+.white-subtitle-color {
+  color: #b3b3b3;
+}
+
+.white-detailBg {
+  background: -webkit-linear-gradient(top,#6882fd,rgba(104,130,253,.7),rgba(85,170,255,.05));
+}
+
+.white-detailBgMax {
+  background: -webkit-linear-gradient(top,#6882fd,rgba(104,130,253,.7));
+}
+
+.white-bg1,.white-bg2 {
+  background-color: #fff;
+}
+
+.white-bg3 {
+  background-color: #f5f5f5;
+  color: #828282;
+}
+
+.white-loading {
+  background-color: #eee;
+  color: #aaa;
+}

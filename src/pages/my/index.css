@@ -1,0 +1,153 @@
+.video {
+    width: 750px;
+    height: 400px;
+}
+
+.userInfo {
+    width: 750px;
+    height: 300px;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.userInfo-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px 2px #cfcfcf;
+}
+
+.user {
+    width: 600px;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-pack: space-evenly;
+    justify-content: space-evenly;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.user-name {
+    font-size: 28px;
+}
+
+.user_pid {
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+}
+
+.user-icon {
+    color: #b15959;
+    animation-name: myfirst-data-v-e661a0a8;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: 5;
+}
+
+@keyframes myfirst-data-v-e661a0a8 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+@-webkit-keyframes myfirst-data-v-e661a0a8 {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(1turn);
+    }
+}
+
+.mylist {
+    width: 750px;
+    -webkit-box-orient: horizontal;
+    flex-direction: row;
+    -webkit-box-pack: space-evenly;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    height: 260px;
+}
+
+.mylist-data,.mylist {
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.mylist-data {
+    width: 187px;
+    height: 150px;
+    -webkit-box-orient: vertical;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.mylist-data-icon {
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 60px;
+}
+
+.mylist-data-icon:after {
+    border: none;
+}
+
+.mylist-data-text {
+    font-size: 28px;
+}
+
+.tishi {
+    width: 750px;
+    height: 70px;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+    background-color: #fffbe8;
+}
+
+.tsicon {
+    width: 10%;
+    text-align: center;
+    font-size: 36px;
+    color: #de8c17;
+}
+
+.tstest {
+    z-index: 100;
+    width: 65%;
+    position: absolute;
+    transform: translate(30vw);
+    font-size: 28px;
+    color: #de8c17;
+}
+
+.movieH {
+    width: 94%;
+    margin: 0 auto;
+    height: 60px;
+    line-height: 60px;
+    font-weight: 600;
+    font-size: 28px;
+}
