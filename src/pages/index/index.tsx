@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { View, Image,Button,Swiper,SwiperItem,OfficialAccount,navigateTo } from 'remax/wechat';
+import { View, Image,Button,Swiper,SwiperItem,OfficialAccount,navigateTo,createInterstitialAd } from 'remax/wechat';
 // @ts-ignore
 import classNames from 'classnames';
 
 import './index.css';
-import {post, setStorage, themeMode} from "@/util/wxUtils";
+import {getStorage, post, setStorage, themeMode} from "@/util/wxUtils";
 import {useState} from "react";
 import {usePageEvent} from 'remax/macro';
 import {GenericEvent} from "@remax/wechat/esm/types/component";
@@ -15,12 +15,15 @@ import VodItem from "@/components/VodItem";
 import Notice from "@/components/Notice";
 import Popup from "@/components/MyPopup";
 import AppAddTip from "@/components/AppAddTip";
-import {Movie} from "@/data";
+import {Movie, SiteInfo} from "@/data";
 
 type Data = {
     tag: string;
     list: Movie[];
 }
+
+const siteInfo: SiteInfo = getStorage('siteInfo');
+let interstitialAd: WechatMiniprogram.InterstitialAd;
 
 export default () => {
     const [cardCur,setCardCur] = useState<number>(0);
@@ -37,9 +40,40 @@ export default () => {
         });
         post('tuijian',{},(data:Movie[]) => {
             setTuiJian(data);
-        })
+        });
     }
 
+    const interstitialAdCreate = () =>{
+        if(!interstitialAd){
+            interstitialAd = createInterstitialAd({
+                adUnitId:siteInfo.interstitialAdId,
+            });
+            interstitialAd.onLoad((e)=>{
+                console.log("onLoad",e);
+            });
+            interstitialAd.onClose((e)=>{
+                console.log("onClose",e);
+            });
+            interstitialAd.onError((e)=>{
+                console.log("onError",e);
+            });
+        }
+    }
+
+    const interstitialAdShow=()=>{
+        if(interstitialAd){
+            interstitialAd.show().then((e)=>{
+                console.log("show",e);
+            })
+        }
+    }
+
+    usePageEvent('onShow',()=>{
+        interstitialAdCreate();
+        setTimeout(()=>{
+            interstitialAdShow();
+        },15e3);
+    });
 
     usePageEvent('onLoad',()=>{
         console.log("usePageEvent onLoad",themeMode());
@@ -48,7 +82,7 @@ export default () => {
         setTimeout(()=>{
             setShowTip(false);
         },5e3);
-    })
+    });
 
 
     const cardSwiper = (e: GenericEvent) =>{

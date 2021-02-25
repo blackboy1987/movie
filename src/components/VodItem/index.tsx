@@ -15,6 +15,7 @@ type VodItemProps = {
 
 const VodItem:React.FC<VodItemProps> = ({theme,values}) =>{
     const [item,setItem] = useState<Movie>(values);
+
     /**
      * 图片加载状态。0：正在加载 1：加载失败 2： 加载成功
      */
@@ -32,7 +33,7 @@ const VodItem:React.FC<VodItemProps> = ({theme,values}) =>{
                 <View className="moviePic" onClick={()=>navigateTo({
                     url:'/pages/detail/index?id='+item.id
                 })}>
-                    <Image style={{display: loadImgStatus!==2?'hidden':''}} onError={()=>{
+                    <Image style={{display:loadImgStatus!==2 ?"none":""}} onError={()=>{
                         setLoadImgStatus(1);
                     }} onLoad={()=>{
                         setLoadImgStatus(2)

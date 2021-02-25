@@ -24,10 +24,11 @@ export const createRewardedVideoAd=(adUnitId:string,callback:{
 
 
 export const createInterstitialAd = (adUnitId:string,callback:{
-    onLoad:()=>void;
-    onError:(err)=>void;
-    onClose:(res)=>void;
+    onLoad?:()=>void;
+    onError?:(err)=>void;
+    onClose?:(res)=>void;
 }) =>{
+    console.log(adUnitId);
     if (wx.createInterstitialAd) {
         const {onLoad,onError,onClose} = callback;
         const interstitialAd = wx.createInterstitialAd({

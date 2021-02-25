@@ -9,6 +9,7 @@ import {post, themeMode} from "@/util/wxUtils";
 import HeaderBar from "@/components/HeaderBar";
 import NavBar from "@/components/NavBar";
 import VodItem from "@/components/VodItem";
+import MyIcon from "@/components/MyIcon";
 
 const wxverify = false;
 
@@ -28,16 +29,16 @@ type MovieCategory = {
 
 const sortlist = [ {
     id: 0,
-    title: <Image style={{width:50,height:50}} mode='heightFix' src='/images/hot.png' />,
-    active: <Image style={{width:50,height:50}} mode='heightFix' src='/images/hot1.png' />,
+    title: <MyIcon type='re1' color='#f4d13a' />,
+    active: <MyIcon type='re1' color='#f49c36' />,
 }, {
     id: 1,
-    title: <Image style={{width:50,height:50}} mode='heightFix' src='/images/new.png' />,
-    active: <Image style={{width:50,height:50}} mode='heightFix' src='/images/new1.png' />,
+    title: <MyIcon type='xin1' color='#f4d13a' />,
+    active: <MyIcon type='xin1' color='#f49c36' />,
 }, {
     id: 3,
-    title: <Image style={{width:50,height:50}} mode='heightFix' src='/images/ping.png' />,
-    active: <Image style={{width:50,height:50}} mode='heightFix' src='/images/ping1.png' />,
+    title: <MyIcon type='ping1' color='#f4d13a' size={50} />,
+    active: <MyIcon type='ping1' color='#f49c36' size={50} />,
 } ];
 
 const loadingText = '加载中...';
@@ -241,9 +242,7 @@ const FenLei = () =>{
                     ) : null
                 }
                 <View className={classNames('carousel-by',themeMode()+'-bg2')}>
-                    <View className={classNames('switch',themeMode()+'-title-color')} onClick={()=>{
-                        setShuaixuan(!shuaixuan);
-                    }}>
+                    <View className={classNames('switch',themeMode()+'-title-color')} onClick={()=>{setShuaixuan(!shuaixuan);}}>
                         <Text className="cuIcon" style={{fontSize:30}} />
                         <Text className="switch-text cuIcon">筛选</Text>
                     </View>

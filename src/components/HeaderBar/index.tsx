@@ -6,7 +6,7 @@ type HeaderBarProps = {
     Max?: boolean;
 }
 
-const HeaderBar:React.FC<HeaderBarProps> = ({Max=true,theme,children}) =>{
+const HeaderBar:React.FC<HeaderBarProps> = ({Max=false,theme,children}) =>{
     return (
         <view className={Max?theme+'-detailBgMax':theme+'-detailBg'}>
             {children}

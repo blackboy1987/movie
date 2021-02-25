@@ -3,6 +3,7 @@ import {Image, View} from 'remax/wechat';
 // @ts-ignore
 import classNames from 'classnames';
 import './index.css';
+import MyIcon from "@/components/MyIcon";
 
 type NavBarProps = {
     fixed?: boolean;
@@ -44,12 +45,12 @@ const NavBar:React.FC<NavBarProps> = (
                     {
                         type == 'index' ? (
                             <View className="backTwo" style={Button}>
-                                <View className="back cuIcon" onClick={()=>switchTheme&&switchTheme("black")}>
-                                    <Image src='/images/back.png' style={{width:40,height:40}} />
+                                <View className="back" onClick={()=>switchTheme&&switchTheme("black")}>
+                                    <MyIcon type='icon-moon-fill' color='#fff' />
                                 </View>
                                 <View className="line" />
-                                <View className="back cuIcon" onClick={()=>switchTheme&&switchTheme("white")}>
-                                    <Image src='/images/white.png' style={{width:40,height:40}} />
+                                <View className="back" onClick={()=>switchTheme&&switchTheme("white")}>
+                                    <MyIcon type='taiyang' color='#fff' />
                                 </View>
                             </View>
                         ) : null
@@ -57,12 +58,12 @@ const NavBar:React.FC<NavBarProps> = (
                     {
                         type == 'home' ? (
                             <View className="backTwo" style={Button}>
-                                <View className="back cuIcon">
-                                    <Image src='/images/left.png' style={{width:40,height:40}} />
+                                <View className="back">
+                                    <MyIcon type='houtui' color='#fff' />
                                 </View>
                                 <View className="line" />
-                                <View className="back cuIcon">
-                                    <Image src='/images/home.png' style={{width:40,height:40}} />
+                                <View className="back">
+                                    <MyIcon type='shouye' color='#fff' />
                                 </View>
                             </View>
                         ) : null
@@ -72,6 +73,7 @@ const NavBar:React.FC<NavBarProps> = (
                             <View className="backOne" style={Button}>
                                 <View className="back" style={{height:'100%'}}>
                                     <Image mode='widthFix' src='/images/left.png' style={{width:40,height:40}} />
+                                    <MyIcon type='icon-moon-fill' />
                                 </View>
                             </View>
                         ) : null
@@ -80,7 +82,7 @@ const NavBar:React.FC<NavBarProps> = (
                         type == 'top' ? (
                             <View className="backOne" style={Button}>
                                 <View className="back cuIcon">
-                                    <Image mode='widthFix' style={{width:60}} src='/images/top.png' />
+                                    <MyIcon type='taiyang' color='#fff' />
                                 </View>
                             </View>
                         ) : null

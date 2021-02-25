@@ -6,7 +6,7 @@ import React, { FunctionComponent } from 'react';
 import Iconfont_wechat from './wechat/wechat';
 
 interface Props {
-  name: 'wechat' | 'alipay' | 'baidu' | 'logout' | 'user';
+  name: 'fenxiang1' | 'ping1' | 're1' | 'xin1' | 'dingbu' | 'ic_history' | 'guanbi' | 'lianjie' | 'kefu' | 'xuanji' | 'beisu20' | 'weixin' | 'beisu10' | 'beisu12' | 'beisu15' | 'xing' | 'houtuimiao' | 'houtuis' | 'zuoyoujiantou' | 'zuoyoujiantou1' | 'xingxing' | 'taiyang' | 'jianjie1' | 'shouye' | 'houtui' | 'bofang' | 'pengyouquan' | 'icon-moon-fill' | 'tongzhi' | '161jiarehuoyan' | 'jianjie';
   size?: number;
   color?: string | string[];
 }

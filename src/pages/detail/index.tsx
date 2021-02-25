@@ -15,6 +15,7 @@ import {usePageEvent} from "remax/macro";
 import MyIcon from "@/components/MyIcon";
 import IconFont from '@/components/iconfont';
 import CustomAd from "@/components/CustomAd";
+import My from "@/pages/my";
 
 const voddata ={
     "vod_id":67813,
@@ -155,12 +156,12 @@ const Detail = ()=>{
                         <Text className="big_year ellipsis">{vodData?.year + ' / ' + vodData?.area || '未知' + ' / ' + vodData?.director||'未知'}</Text>
                         <View className="big_button">
                             <Button className="big_fx" openType="share">
-                                <View className="big_button_fx"><Icon type='share' color='#fff'  />分享</View>
+                                <View className={classNames('big_button_fx','myIcon',themeMode())}>
+                                    <MyIcon type='fenxiang1' size={30} color={themeMode()==='black'?'#FFF':''}/>&nbsp;分享
+                                </View>
                             </Button>
-                            <View className="big_button_sc" style={{display:'flex',alignItems:'center',justifyContent:'center',color:'#000'}}>
-                                <MyIcon type='haibao' styles={{marginRight:4}} size={28} />
-                                海报
-                            </View>
+                            <View className="big_button_sc myIcon">
+                                <MyIcon type='pengyouquan' size={30} color={themeMode()==='black'?'#FFF':''}/>&nbsp;海报</View>
                         </View>
                     </View>
                 </view>
@@ -175,9 +176,8 @@ const Detail = ()=>{
                             </View>
                             <View className="vodWebkit" />
                             <View className="vodPlay">
-                                <Image mode='widthFix' style={{width:45}} src='/images/start.png' />
+                                <MyIcon type='bofang' size={50} color='#FFF' />
                                 <view className="vodSc">开始播放</view>
-                                <IconFont name="alipay" color={['red', 'orange']} size={300} />
                             </View>
                         </View>
                     </View>
@@ -185,7 +185,7 @@ const Detail = ()=>{
             }
             <CustomAd type='banner' />
             <view className="vod_content">
-                <view className={classNames('vod_content_title', themeMode()+'-title-color')}><MyIcon size={26} type='jianjie' styles={{marginRight:8}} />影片简介</view>
+                <view className={classNames('vod_content_title','myIcon', themeMode()+'-title-color')}><MyIcon size={34} type='jianjie1' color={themeMode()==='black'?'#FFF':'#000'} />&nbsp;影片简介</view>
                 <view className="vod_content_text">
                     {
                         showContent ? (
@@ -212,7 +212,7 @@ const Detail = ()=>{
                         {
                             photos.length>0 ? (
                                 <View style={{width:'94%',margin:'0 auto'}}>
-                                    <View className={classNames('vod_content_title', themeMode()+'-title-color')}><MyIcon size={26} type='juzhao' styles={{marginRight:8}} />精彩剧照</View>
+                                    <View className={classNames('vod_content_title','myIcon', themeMode()+'-title-color')}><MyIcon size={34} type='jianjie1' color={themeMode()==='black'?'#FFF':'#000'} />&nbsp;精彩剧照</View>
                                     <View className="functionaryJob" style={{height:340,display:'flex',overflow:'auto'}}>
                                         {
                                             photos.map((item,index)=>(

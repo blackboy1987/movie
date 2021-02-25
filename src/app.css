@@ -47,3 +47,15 @@
     background-position: -100% 0;
   }
 }
+
+.myIcon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.black{
+  color: #FFF;
+}
+.white{
+  color: #000;
+}
