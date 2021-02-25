@@ -1,8 +1,9 @@
 import * as React from 'react';
+// @ts-ignore
 import classNames from 'classnames';
 import './index.css';
 import {View} from "remax/wechat";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {usePageEvent} from "remax/macro";
 
 type TransitionProps = {

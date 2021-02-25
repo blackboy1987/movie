@@ -13,7 +13,7 @@ import VodItem from "@/components/VodItem";
 import {Movie} from "@/data";
 import {usePageEvent} from "remax/macro";
 import MyIcon from "@/components/MyIcon";
-import My from "@/pages/my";
+import IconFont from '@/components/iconfont';
 import CustomAd from "@/components/CustomAd";
 
 const voddata ={
@@ -177,6 +177,7 @@ const Detail = ()=>{
                             <View className="vodPlay">
                                 <Image mode='widthFix' style={{width:45}} src='/images/start.png' />
                                 <view className="vodSc">开始播放</view>
+                                <IconFont name="alipay" color={['red', 'orange']} size={300} />
                             </View>
                         </View>
                     </View>
