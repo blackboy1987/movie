@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { View, Text, Image,Button,Swiper,SwiperItem,OfficialAccount } from 'remax/wechat';
+import { View, Image,Button,Swiper,SwiperItem,OfficialAccount } from 'remax/wechat';
+// @ts-ignore
 import classNames from 'classnames';
 
 import './index.css';
@@ -12,8 +13,9 @@ import HeaderBar from "@/components/HeaderBar";
 import NavBar from "@/components/NavBar";
 import VodItem from "@/components/VodItem";
 import Notice from "@/components/Notice";
-import Popup from "@/components/Popup";
+import Popup from "@/components/MyPopup";
 import AppAddTip from "@/components/AppAddTip";
+import {Movie} from "@/data";
 
 const items = [
     {
@@ -38,10 +40,15 @@ const items = [
     },
 ];
 
+type Data = {
+    tag: string;
+    list: Movie[];
+}
+
 export default () => {
     const [cardCur,setCardCur] = useState<number>(0);
     const [theme,setTheme] = useState('white');
-    const [data,setData] = useState<any[]>([]);
+    const [data,setData] = useState<Data[]>([]);
     const [showTanChuang,setShowTanChuang] = useState<boolean>(true);
     const [showTip,setShowTip] = useState<boolean>(true);
 
@@ -103,7 +110,7 @@ export default () => {
                     </View>
                     <View className="movieBox">
                         {
-                            item.list.map(movie=><VodItem key={movie.id} values={movie} theme={theme} />)
+                            (item.list||[]).map(movie=><VodItem key={movie.id} values={movie} theme={theme} />)
                         }
                     </View>
                 </View>

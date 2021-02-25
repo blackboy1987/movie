@@ -13,6 +13,9 @@ import ReverseList from "@/pages/play/ReverseList";
 import {Movie, PlayUrl, SiteInfo} from "@/data";
 import {siteInfo} from "@/util/utils";
 import {GenericEvent} from "@remax/wechat/esm/types/component";
+import CustomAd from "@/components/CustomAd";
+import MyPopup from "@/components/MyPopup";
+import AppAddTip from "@/components/AppAddTip";
 
 type PlayProps = {
     theme:string;
@@ -22,6 +25,7 @@ type PlayProps = {
 }
 const isPlay = true;
 const showControls = true;
+const flag = false;
 const danmuList= [ {
         text: "请勿相信视频内广告",
         color: "#ff0000",
@@ -95,7 +99,14 @@ const Play:React.FC<PlayProps> = ({}) =>{
     const [siteInfos,setSiteInfos] = useState<SiteInfo>({});
     const [tipText,setTipText] = useState<string>('');
     const [objectFit,setObjectFit] = useState<'contain'|'fill'|'cover'>('contain');
+    const [showTip,setShowTip] = useState<boolean>(true);
 
+    const hideShowTip=()=>{
+        const timer = setTimeout(()=>{
+            setShowTip(false);
+            clearTimeout(timer);
+        },5e3);
+    }
 
     usePageEvent("onLoad",(e)=>{
         siteInfo((data:SiteInfo)=>setSiteInfos(data));
@@ -105,6 +116,7 @@ const Play:React.FC<PlayProps> = ({}) =>{
             setCurrentPlayFrom(data.playUrls[0].title);
             setCurrentIndex(0);
         });
+        hideShowTip();
     })
 
     const updateTipText=(text: string)=>{
@@ -164,7 +176,6 @@ const Play:React.FC<PlayProps> = ({}) =>{
      */
     const onError = (event: GenericEvent) =>{
         updateTipText('加载失败,正在切换线路');
-        console.log("error");
     }
 
     /**
@@ -186,15 +197,7 @@ const Play:React.FC<PlayProps> = ({}) =>{
                         themeMode()+'-page'
                     )}>
                         <HeaderBar theme='black'>
-                            <NavBar
-                                Button={{width:87, height:64,lineHeight:64}}
-                                barStyle={{height:48}}
-                                bgColor='rgba(255, 255, 255, 0)'
-                                bar={{height:64,width:536,marginLeft:20}}
-                                text={vodData?.title}
-                                type='back'
-                                textView={{width:449,height:64,lineHeight:64}}
-                            />
+                            <NavBar Button={{width:87, height:64,lineHeight:64}} barStyle={{height:48}} bgColor='rgba(255, 255, 255, 0)' bar={{height:64,width:536,marginLeft:20}} text={vodData?.title} type='back' textView={{width:449,height:64,lineHeight:64}}/>
                         </HeaderBar>
                         <View style={{width:750,height:450,backgroundColor:'#333333'}}>
                             <Video
@@ -220,7 +223,6 @@ const Play:React.FC<PlayProps> = ({}) =>{
                                 onError={onError}
                                 onProgress={onProgress}
                                 showFullscreenBtn
-                                loadedMetaData={()=>console.log('bindloadedmetadata')}
                             >
                                 {
                                     tipText ? (<View className="vodTip">{tipText}</View>) : null
@@ -232,15 +234,10 @@ const Play:React.FC<PlayProps> = ({}) =>{
                         <View className="detail">
                             <View className="detail-title">
                                 <View style={{display:'flex',flexDirection:'row',justifyContent:'space-between',flexWrap:'nowrap'}}>
-                                    <Text className={classNames(
-                                        'detail-title-title',themeMode()+'-title-color'
-                                    )}>{vodData?.title}</Text>
+                                    <Text className={classNames('detail-title-title',themeMode()+'-title-color')}>{vodData?.title}1234</Text>
                                     <Text className="detail-list-pingfen ellipsis" style={{color:'rgba(255, 0, 4, 1)',fontSize:22,marginLeft:20}}>{vodData?.remarks||''}</Text>
                                 </View>
-                                <Text className={classNames(
-                                    'big_button_sc',
-                                    isSc?'big_button_issc':'cuIcon-iconicon-test20'
-                                )} />
+                                <Text className={classNames('big_button_sc', isSc?'big_button_issc':'cuIcon-iconicon-test20')} />
                             </View>
                         </View>
                         <View className="play_xj">
@@ -262,22 +259,13 @@ const Play:React.FC<PlayProps> = ({}) =>{
 
                             </View>
                             <View className="playArr">
-                                <View className="playArr-tilie">
-                                    <Icon type='sort' size={28} color='red' />
-                                    选集
-                                </View>
+                                <View className="playArr-tilie" onClick={()=>setOpenXuanJi(true)}>
+                                    <Icon type='sort' size={28} color='red' />选集</View>
                                 <View className="laiyuan">
-                                    <ScrollView
-                                        className={classNames('laiyuan-list', themeMode()+'-title-color')}
-                                        enableFlex
-                                        scrollX
-                                    >
+                                    <ScrollView className={classNames('laiyuan-list', themeMode()+'-title-color')} enableFlex scrollX>
                                         {
                                             (vodData?.playUrls||[]).map(item=>(
-                                                <View onClick={()=>{
-                                                    setCurrentPlayFrom(item.title);
-                                                    setCurrentIndex(0);
-                                                }} className="laiyuan-list-fenge" key={item.title} id={item.title}>
+                                                <View onClick={()=>{setCurrentPlayFrom(item.title);setCurrentIndex(0);}} className="laiyuan-list-fenge" key={item.title} id={item.title}>
                                                     <View className={classNames('laiyuan-list-txt', item.title===currentPlayFrom?'laiyuanon':'laiyuan-list-txt')}>{item.title}</View>
                                                 </View>
                                             ))
@@ -286,25 +274,20 @@ const Play:React.FC<PlayProps> = ({}) =>{
                                 </View>
                             </View>
                             <View className="xuanji">
-                                <ScrollView
-                                    className="xuanji-list"
-                                    enableFlex
-                                    scrollIntoView={`g${currentIndex}`}
-                                    scrollX
-                                >
+                                <ScrollView className="xuanji-list" enableFlex scrollIntoView={`g${currentIndex}`} scrollX>
                                     {
                                         (myList[`${currentPlayFrom}`]||[]).map((item:{title:string,url:string},index:number)=>(
                                             <View onClick={()=>setCurrentIndex(index)} className="xuanji-list-fenge" id={index} key={item.title}>
-                                                <View className={classNames(
-                                                    'xuanji-list-txt',
-                                                    currentIndex==index?'xuanjion':'xuanji-list-txt'
-                                                )}>{item.title}</View>
+                                                <View className={classNames('xuanji-list-txt', currentIndex==index?'xuanjion':'xuanji-list-txt')}>{item.title}</View>
                                             </View>
                                         ))
                                     }
 
                                 </ScrollView>
                             </View>
+                        </View>
+                        <View>
+                            <CustomAd show />
                         </View>
                         <View className="vod_content">
                             <View className={classNames('vod_content_title', themeMode()+'-title-color')}>影片简介</View>
@@ -329,6 +312,34 @@ const Play:React.FC<PlayProps> = ({}) =>{
                                 <Text style={{fontSize:28}}>{statement}</Text>
                             </View>
                         </View>
+                        <AppAddTip showTip={showTip} showButton />
+                        <Popup
+                            position="bottom"
+                            closeable
+                            open={openXuanJi}
+                            curve='ease'
+                            style={{background:themeMode()==='black'?'#323232':''}}
+                            onClose={()=>setOpenXuanJi(false)}
+                        >
+                            <ReverseList theme={themeMode()} list={(myList[currentPlayFrom]||[])} currentIndex={currentIndex} />
+                        </Popup>
+                        {
+                            flag ? (
+                                <MyPopup>
+                                    <View className="adPopup">
+                                        <View className="adPopup-button">
+                                            <Button className="adPopup-button-view" openType="share">分享群后就能免费观看哦~</Button>
+                                            <Button className="adPopup-button-view zwyHeightSec">看广告支持一下我们也能免费观看~</Button>
+                                            <Button className="adPopup-button-view">我在看看其它的吧~</Button>
+                                        </View>
+                                        <View className="adPopup-text">
+                                            <Text className="adPopup-text-text">重要申明：本站自身不存储、控制编辑或修改任何资源，对资源内容不拥有任何权利，也不负任何责任！请勿相信观看时里面的任何广告！
+                                            </Text>
+                                        </View>
+                                    </View>
+                                </MyPopup>
+                            ) : null
+                        }
                     </View>
                 ) : null
             }
