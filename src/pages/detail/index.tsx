@@ -1,14 +1,20 @@
 import * as React from 'react';
-import {Image, Button, Text, View,previewImage,ScrollView} from 'remax/wechat';
+import {Image, Button, Text, View, previewImage, ScrollView, RichText, Ad} from 'remax/wechat';
 import { Rate,Icon  } from 'annar';
+// @ts-ignore
 import classNames from 'classnames';
-import {themeMode} from "@/util/wxUtils";
+import {post, themeMode} from "@/util/wxUtils";
 import './index.css';
 import {useState} from "react";
 
 import HeaderBar from "@/components/HeaderBar";
 import NavBar from "@/components/NavBar";
 import VodItem from "@/components/VodItem";
+import {Movie} from "@/data";
+import {usePageEvent} from "remax/macro";
+import MyIcon from "@/components/MyIcon";
+import My from "@/pages/my";
+import CustomAd from "@/components/CustomAd";
 
 const voddata ={
     "vod_id":67813,
@@ -114,6 +120,15 @@ const likedata: any[] = [];
 
 const Detail = ()=>{
     const [showContent,setShowContent] = useState<boolean>(false);
+    const [vodData,setVodData] = useState<Movie>();
+
+    usePageEvent('onLoad',(e)=>{
+        console.log("eeee",e);
+        post('snapshot',e,data=>{
+            setVodData(data);
+        })
+    })
+
 
     const preview = (url: string) =>{
         previewImage({
@@ -130,31 +145,20 @@ const Detail = ()=>{
         <View className={themeMode()+'-page'}>
             <HeaderBar theme={themeMode()}>
                 <NavBar fixed type="home" bgColor='rgba(255, 255, 255, 0)' barStyle={{height:48}} bar={{height:64,width:536,marginLeft:20}} Button={{width:174}} customBar={{height:132}} />
-
-                <view className={classNames(
-                    'bigContent',
-                    themeMode()+'-title-color'
-                )}>
-                    <Image className="bigImg" lazyLoad src={voddata.vod_pic} webp />
+                <view className={classNames('bigContent', themeMode()+'-title-color')}>
+                    <Image className="bigImg" lazyLoad src={vodData?.pic} webp />
                     <View className="bigClass">
-                        <Text className="big_name ellipsis">{voddata.vod_name}</Text>
-                        {
-                            voddata.vod_remarks.length>3 ? (
-                                <Text className="big_year ellipsis" style={{color:'rgba(255, 0, 4, 1)',fontSize:22}}>{voddata.type_id == 2 ? voddata.vod_remarks : '更新至' + voddata.vod_serial + '集'}</Text>
-                            ) : null
-                        }
+                        <Text className="big_name ellipsis">{vodData?.title}</Text>
+                        <Text className="big_year ellipsis" style={{color:'rgba(255, 0, 4, 1)',fontSize:22}}>{vodData?.remarks}</Text>
                         <Text className="big_year ellipsis">{'类型 : '+(voddata.vod_class ? voddata.vod_class : '未知')}</Text>
-                        <Text className="big_year ellipsis">{'演员 : '+(voddata.vod_actor ? voddata.vod_actor : '未知')}</Text>
-                        <Text className="big_year ellipsis">{voddata.vod_year + ' / ' + (voddata.vod_area ? voddata.vod_area : '未知') + ' / ' + (voddata.vod_director ? voddata.vod_director : '未知')}</Text>
+                        <Text className="big_year ellipsis">{'演员 : '+(vodData?.actor || '未知')}</Text>
+                        <Text className="big_year ellipsis">{vodData?.year + ' / ' + vodData?.area || '未知' + ' / ' + vodData?.director||'未知'}</Text>
                         <View className="big_button">
                             <Button className="big_fx" openType="share">
-                                <View className="big_button_fx">
-                                    <Image style={{width:24,marginRight:2}} mode='widthFix' src='/images/share1.png' />
-                                    分享
-                                </View>
+                                <View className="big_button_fx"><Icon type='share' color='#fff'  />分享</View>
                             </Button>
-                            <View className="big_button_sc" >
-                                <Image style={{width:28,marginRight:2}} mode='widthFix' src='/images/haibao.png' />
+                            <View className="big_button_sc" style={{display:'flex',alignItems:'center',justifyContent:'center',color:'#000'}}>
+                                <MyIcon type='haibao' styles={{marginRight:4}} size={28} />
                                 海报
                             </View>
                         </View>
@@ -166,7 +170,7 @@ const Detail = ()=>{
                     <View className="playView">
                         <View className="vodMsg">
                             <View className="vodScore">
-                                <Text className="vodScore_text">{voddata.vod_score > 0 ? '豆瓣:' + voddata.vod_score : '暂无评分'}</Text>
+                                <Text className="vodScore_text">{vodData?.score ? '豆瓣:' + vodData.score : '暂无评分'}</Text>
                                 <Rate value={3.8} readOnly size={44} color='#f4d13a' style={{marginRight:0}} />
                             </View>
                             <View className="vodWebkit" />
@@ -178,25 +182,23 @@ const Detail = ()=>{
                     </View>
                 ) : null
             }
+            <CustomAd type='banner' />
             <view className="vod_content">
-                <view className={classNames(
-                    'vod_content_title',
-                    themeMode()+'-title-color'
-                )}>影片简介</view>
+                <view className={classNames('vod_content_title', themeMode()+'-title-color')}><MyIcon size={26} type='jianjie' styles={{marginRight:8}} />影片简介</view>
                 <view className="vod_content_text">
                     {
                         showContent ? (
                             <View>
-                                {voddata.vod_content}
+                                <RichText nodes={vodData?.content} />
                                 {
-                                    voddata.vod_content!==null&&voddata.vod_content.length>85 ? (<View className="vod_content_full" onClick={()=>setShowContent(false)}>收起<Icon type='fold' color='#999999' /></View>) : null
+                                    vodData?.blurb ? (<View className="vod_content_full" onClick={()=>setShowContent(false)}>收起<Icon type='fold' color='#999999' /></View>) : null
                                 }
                             </View>
                         ) : (
                             <View>
-                                <Text>{voddata.vod_content.substr(0,85)}</Text>
+                                <RichText nodes={vodData?.blurb} />
                                 {
-                                    voddata.vod_content.length > 85 ? (<View className="vod_content_full" onClick={()=>setShowContent(true)}>展开<Icon type='unfold' color='#999999' /></View>) : null
+                                    vodData?.content ? (<View className="vod_content_full" onClick={()=>setShowContent(true)}>展开<Icon type='unfold' color='#999999' /></View>) : null
                                 }
                             </View>
                         )
@@ -209,10 +211,7 @@ const Detail = ()=>{
                         {
                             photos.length>0 ? (
                                 <View style={{width:'94%',margin:'0 auto'}}>
-                                    <View className={classNames(
-                                        'vod_content_title',
-                                        themeMode()+'-title-color'
-                                    )}>精彩剧照</View>
+                                    <View className={classNames('vod_content_title', themeMode()+'-title-color')}><MyIcon size={26} type='juzhao' styles={{marginRight:8}} />精彩剧照</View>
                                     <View className="functionaryJob" style={{height:340,display:'flex',overflow:'auto'}}>
                                         {
                                             photos.map((item,index)=>(
@@ -234,10 +233,7 @@ const Detail = ()=>{
             {
                 likedata.length>0 ? (
                     <View>
-                        <View className={classNames(
-                            'vod_content_title ',
-                            themeMode()+'-title-color'
-                        )} style={{marginLeft:20}}>精彩推荐
+                        <View className={classNames('vod_content_title ', themeMode()+'-title-color')} style={{marginLeft:20}}><Icon type='hot_fill' size={80} />精彩推荐
                         </View>
                         <View className="like">
                             <ScrollView className="likelist " enableFlex scrollX showScrollbar={false}>

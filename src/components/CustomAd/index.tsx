@@ -1,28 +1,30 @@
 import * as React from 'react';
 import {View,Ad} from "remax/wechat";
 import {SiteInfo} from "@/data";
-import {getStorage} from "@/util/wxUtils";
+import {getStorage, themeMode} from "@/util/wxUtils";
 
 import './index.css';
 
 const siteInfo:SiteInfo = getStorage("siteInfo");
 type HeaderBarProps = {
-    show: boolean;
     min?: number;
+    type:'banner'|'video'|'grid'
 }
-
-const CustomAd:React.FC<HeaderBarProps> = ({show,min=680}) =>{
-
+const CustomAd:React.FC<HeaderBarProps> = ({type='banner',min=680}) =>{
 
     return (
         <>
-            {
-                show ? (
-                    <View className="ad-ys-view" style={{width:min}}>
-                        <Ad adTheme='black' adType='custom' unitId={siteInfo.nativeAdId} />
-                    </View>
-                ) : null
-            }
+            <View className="ad-ys-view" style={{width:min}}>
+                {
+                    type==='banner' ? (<Ad adTheme={themeMode()} adType='custom' unitId={siteInfo.bannerAdId} />) : null
+                }
+                {
+                    type==='video' ? (<Ad adTheme={themeMode()} adType='custom' unitId={siteInfo.videoAdId} />) : null
+                }
+                {
+                    type==='grid' ? (<Ad adTheme={themeMode()} adType='custom' unitId={siteInfo.gridAdId} />) : null
+                }
+            </View>
         </>
 
 

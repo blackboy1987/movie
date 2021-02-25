@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Image,Button,Swiper,SwiperItem,OfficialAccount } from 'remax/wechat';
+import { View, Image,Button,Swiper,SwiperItem,OfficialAccount,navigateTo } from 'remax/wechat';
 // @ts-ignore
 import classNames from 'classnames';
 
@@ -17,29 +17,6 @@ import Popup from "@/components/MyPopup";
 import AppAddTip from "@/components/AppAddTip";
 import {Movie} from "@/data";
 
-const items = [
-    {
-        vod_pic:'http://rpg.pic-imges.com/pic/upload/vod/2021-02/1612198508.jpg',
-        vod_name:'觉醒年代',
-        id:1,
-    },
-    {
-        vod_pic:'http://rpg.pic-imges.com/pic/upload/vod/2021-02/1612198508.jpg',
-        vod_name:'觉醒年代',
-        id:2,
-    },
-    {
-        vod_pic:'http://rpg.pic-imges.com/pic/upload/vod/2021-02/1612198508.jpg',
-        vod_name:'觉醒年代',
-        id:3,
-    },
-    {
-        vod_pic:'http://rpg.pic-imges.com/pic/upload/vod/2021-02/1612198508.jpg',
-        vod_name:'觉醒年代',
-        id:4,
-    },
-];
-
 type Data = {
     tag: string;
     list: Movie[];
@@ -49,6 +26,7 @@ export default () => {
     const [cardCur,setCardCur] = useState<number>(0);
     const [theme,setTheme] = useState('white');
     const [data,setData] = useState<Data[]>([]);
+    const [tuiJian,setTuiJian] = useState<Movie[]>([]);
     const [showTanChuang,setShowTanChuang] = useState<boolean>(true);
     const [showTip,setShowTip] = useState<boolean>(true);
 
@@ -56,6 +34,9 @@ export default () => {
         post("index",{},(response)=>{
             console.log("response",response);
             setData(response);
+        });
+        post('tuijian',{},(data:Movie[]) => {
+            setTuiJian(data);
         })
     }
 
@@ -84,10 +65,14 @@ export default () => {
             <view className="swiperView" />
             <Swiper autoplay={true} onChange={cardSwiper} circular={true} className={classNames('swiper',theme+'-title-color')} nextMargin='100px' previousMargin='100px'>
                 {
-                    items.map((item,index)=>(
-                        <SwiperItem key={item.id} >
-                            <Image className={classNames('le-img',cardCur==index?'le-active':'')} lazyLoad={true} src={item.vod_pic} webp={true} />
-                            <view className={classNames('le-name ellipsis',cardCur==index?'le-names':'')}>{item.vod_name}</view>
+                    tuiJian.map((item,index)=>(
+                        <SwiperItem key={item.id}>
+                            <Image className={classNames('le-img',cardCur==index?'le-active':'')} lazyLoad={true} src={item.pic} webp={true} onClick={()=>navigateTo({
+                                url:'/pages/detail/index?id='+item.id
+                            })} />
+                            <view className={classNames('le-name ellipsis',cardCur==index?'le-names':'')} onClick={()=>navigateTo({
+                                url:'/pages/detail/index?id='+item.id
+                            })}>{item.title}</view>
                         </SwiperItem>
                     ))
                 }

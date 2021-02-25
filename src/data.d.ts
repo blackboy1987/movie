@@ -64,32 +64,33 @@ export type Movie={
     blurb: string;
     playUrls:PlayUrl[];
     content: string;
+    director?: string;
 
 
 
 }
 
 export type SiteInfo = {
-    appId?: number;
-    bannerAdId?: string;
-    carousels?: string[];
-    createdDate?: Date;
-    everyMinuteToPoint?: number;
-    gridAdId?: string;
-    id?: number;
-    interstitialAdId?: string;
-    jumpAdDiscoutPoint?: number;
-    lastModifiedDate?: Date;
-    logo?: null
-    minVisitMinute?: number;
-    name?: string;
-    nativeAdId?: string;
-    new?: false
-    openAd?: null
-    openPoint?: true
-    rewardedVideoAdId?: string;
-    status?: 0  | 1 | 2;
-    version?: number;
-    videoAdId?: string;
-    videoFrontAdId?: string;
+    appId: number;
+    bannerAdId: string;
+    carousels: string[];
+    createdDate: Date;
+    everyMinuteToPoint: number;
+    gridAdId: string;
+    id: number;
+    interstitialAdId: string;
+    jumpAdDiscoutPoint: number;
+    lastModifiedDate: Date;
+    logo: null
+    minVisitMinute: number;
+    name: string;
+    nativeAdId: string;
+    new: false
+    openAd: null
+    openPoint: true
+    rewardedVideoAdId: string;
+    status: 0  | 1 | 2;
+    version: number;
+    videoAdId: string;
+    videoFrontAdId: string;
 }

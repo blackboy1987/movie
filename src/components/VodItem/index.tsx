@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View,Image} from 'remax/wechat';
+import {View, Image, navigateTo} from 'remax/wechat';
 // @ts-ignore
 import classNames from 'classnames';
 import {usePageEvent} from 'remax/macro';
@@ -19,9 +19,6 @@ const VodItem:React.FC<VodItemProps> = ({theme,values}) =>{
      * 图片加载状态。0：正在加载 1：加载失败 2： 加载成功
      */
     const [loadImgStatus,setLoadImgStatus] = useState<number>(0);
-    const [picError,setPicError] = useState<boolean>(false);
-    const [showImg,setShowImg]  = useState<boolean>(true);
-    const [imgLoading,setImgLoading]  = useState<boolean>(true);
 
     usePageEvent("onLoad",()=>{
         setItem({
@@ -32,7 +29,9 @@ const VodItem:React.FC<VodItemProps> = ({theme,values}) =>{
     return (
         <View className="movieList">
             <View className="moiveItem">
-                <View className="moviePic">
+                <View className="moviePic" onClick={()=>navigateTo({
+                    url:'/pages/detail/index?id='+item.id
+                })}>
                     <Image style={{display: loadImgStatus!==2?'hidden':''}} onError={()=>{
                         setLoadImgStatus(1);
                     }} onLoad={()=>{
@@ -49,11 +48,7 @@ const VodItem:React.FC<VodItemProps> = ({theme,values}) =>{
                             <View className="movieDb">{item.score}</View>
                         ) : null
                     }
-                    {
-                        item.movieCategory_id>1 ? (
-                            <View className="movieRemarks ellipsis">{item.remarks}</View>
-                        ) : null
-                    }
+                    <View className="movieRemarks ellipsis">{item.remarks}</View>
                     <View className={classNames('moiveName ellipsis',theme+'-title-color')}>{item.title}</View>
                     <View className={classNames('moiveActor ellipsis',theme+'-subtitle-color')}>{item.actor ? item.actor : '未知'}</View>
                 </View>

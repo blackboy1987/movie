@@ -27,7 +27,7 @@ export const setStorage = (key: string, value: any) =>{
 export const themeMode=() =>{
     const themeMode = getStorage("themeMode");
     if(themeMode){
-        return 'black';
+        return themeMode;
     }
     return "white";
 }
